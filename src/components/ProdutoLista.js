@@ -19,7 +19,7 @@ class ProdutoLista extends React.Component {
     return (
       <>
         {this.state.produtos && (
-          <table>
+          <table className="table">
             <thead>
               <tr>
                 <th>Código</th>
@@ -29,7 +29,7 @@ class ProdutoLista extends React.Component {
             </thead>
             <tbody>
               {this.state.produtos.map((p) => (
-                <tr>
+                <tr key={p.codigo}>
                   <td>{p.codigo}</td>
                   <td>{p.nome}</td>
                   <td>{p.preco}</td>
