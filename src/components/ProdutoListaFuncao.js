@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProdutoApi from "../api/ProdutoApi";
+import Avaliacao from "./Avaliacao";
 
 function ProdutoListaFuncao() {
   // useState => cria novo state
@@ -35,7 +36,9 @@ function ProdutoListaFuncao() {
                 <td>{p.codigo}</td>
                 <td>{p.nome}</td>
                 <td>{p.preco}</td>
-                <td>{p.avaliacao}</td>
+                <td>
+                  <Avaliacao valor={p.avaliacao} />
+                </td>
               </tr>
             ))}
           </tbody>
