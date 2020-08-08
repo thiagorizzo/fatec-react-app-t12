@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ProdutoApi from "../api/ProdutoApi";
 
-class ProdutoLista extends React.Component {
-  state = {
-    produtos: undefined,
-  };
+function ProdutoListaFuncao() {
+  // useState => cria novo state
+  const [produtos, setProdutos] = useState(undefined);
 
-  componentDidMount() {
+  // var [ numero1, numero2 ] = [1, 2];
+  const [produtoSelecionado, setProdutoSelecionado] = useState(undefined);
+
+  useEffect(() => {
     const produtoApi = new ProdutoApi();
 
     var promise = produtoApi.getAll();
     promise.then((_produtos) => {
-      this.setState({ produtos: _produtos });
+      setProdutos(_produtos);
     });
-  }
+  }, []);
 
-  getLista() {
-    if (this.state.produtos !== undefined) {
-      return (
+  return (
+    <>
+      {produtos && (
         <table className="table">
           <thead>
             <tr>
@@ -27,7 +29,7 @@ class ProdutoLista extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.produtos.map((p) => (
+            {produtos.map((p) => (
               <tr key={p.codigo}>
                 <td>{p.codigo}</td>
                 <td>{p.nome}</td>
@@ -36,15 +38,9 @@ class ProdutoLista extends React.Component {
             ))}
           </tbody>
         </table>
-      );
-    } else {
-      return "<h2>Não há qualquer produto.</h2>";
-    }
-  }
-
-  render() {
-    return <>{this.getLista()}</>;
-  }
+      )}
+    </>
+  );
 }
 
-export default ProdutoLista;
+export default ProdutoListaFuncao;

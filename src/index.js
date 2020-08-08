@@ -3,4 +3,4 @@ import { render } from "react-dom";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-render(<App />, document.getElementById("root"));
+render(<App titulo="Aplicação React" />, document.getElementById("root"));
