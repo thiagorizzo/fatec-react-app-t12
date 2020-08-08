@@ -12,7 +12,10 @@ class App extends React.Component {
   // props em componente que é classe
   constructor(props) {
     super(props);
-    this.setState({ titulo: props.titulo });
+  }
+
+  componentWillMount() {
+    this.setState({ titulo: this.props.titulo });
   }
 
   getPagina() {

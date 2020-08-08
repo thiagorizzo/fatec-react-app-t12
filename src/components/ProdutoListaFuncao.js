@@ -26,6 +26,7 @@ function ProdutoListaFuncao() {
               <th>Código</th>
               <th>Nome</th>
               <th>Preço</th>
+              <th>Avaliacao</th>
             </tr>
           </thead>
           <tbody>
@@ -34,6 +35,7 @@ function ProdutoListaFuncao() {
                 <td>{p.codigo}</td>
                 <td>{p.nome}</td>
                 <td>{p.preco}</td>
+                <td>{p.avaliacao}</td>
               </tr>
             ))}
           </tbody>
