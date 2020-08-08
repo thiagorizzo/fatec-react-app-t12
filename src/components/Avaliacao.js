@@ -17,8 +17,9 @@ function Avaliacao({ valor }) {
   return (
     <>
       {vetorEstrelas &&
-        vetorEstrelas.map((v) => (
+        vetorEstrelas.map((v, index) => (
           <img
+            key={index}
             alt="avaliacao"
             src={v === 0 ? imagemEstrelaApagada : imagemEstrela}
             style={{ height: 30 }}

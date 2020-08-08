@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ProdutoApi from "../api/ProdutoApi";
 import Avaliacao from "./Avaliacao";
+import ProdutoDetalhe from "./ProdutoDetalhe";
+import { Titulo } from "../Styles";
 
 function ProdutoListaFuncao() {
   // useState => cria novo state
@@ -16,10 +18,28 @@ function ProdutoListaFuncao() {
     promise.then((_produtos) => {
       setProdutos(_produtos);
     });
+
+    return () => {
+      // componentDidUnmount()
+    };
   }, []);
+
+  function selecionarProduto(produto) {
+    setProdutoSelecionado(produto);
+  }
+
+  function getProdutoStyle(produto) {
+    if (produto === produtoSelecionado)
+      return {
+        backgroundColor: "cyan",
+      };
+
+    return undefined;
+  }
 
   return (
     <>
+      <Titulo>Lista de Produtos</Titulo>
       {produtos && (
         <table className="table">
           <thead>
@@ -32,7 +52,11 @@ function ProdutoListaFuncao() {
           </thead>
           <tbody>
             {produtos.map((p) => (
-              <tr key={p.codigo}>
+              <tr
+                key={p.codigo}
+                onClick={() => selecionarProduto(p)}
+                style={getProdutoStyle(p)}
+              >
                 <td>{p.codigo}</td>
                 <td>{p.nome}</td>
                 <td>{p.preco}</td>
@@ -44,6 +68,11 @@ function ProdutoListaFuncao() {
           </tbody>
         </table>
       )}
+
+      <ProdutoDetalhe
+        titulo="Produto Selecionado"
+        produto={produtoSelecionado}
+      />
     </>
   );
 }
