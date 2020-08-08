@@ -8,15 +8,21 @@ const imagemEstrelaApagada = `${process.env.PUBLIC_URL}/estrela-apagada.png`;
 function Avaliacao({ valor }) {
   const [vetorEstrelas, setVetorEstrelas] = useState(undefined);
 
+  // 3 => [1,1,1,0,0]
   useEffect(() => {
-    if (valor !== undefined) setVetorEstrelas(new Array(valor).fill(1));
+    if (valor !== undefined)
+      setVetorEstrelas(new Array(5).fill(0).fill(1, 0, valor - 1));
   }, [valor]);
 
   return (
     <>
       {vetorEstrelas &&
-        vetorEstrelas.map(() => (
-          <img src={imagemEstrela} style={{ height: 30 }} />
+        vetorEstrelas.map((v) => (
+          <img
+            alt="avaliacao"
+            src={v === 0 ? imagemEstrelaApagada : imagemEstrela}
+            style={{ height: 30 }}
+          />
         ))}
       {!vetorEstrelas && "sem avaliação"}
     </>
