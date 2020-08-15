@@ -75,8 +75,9 @@ express.get("/Produtos", function (request, response) {
 });
 
 // Create
-express.post("/Produtos", function (request, response) {
+express.post("/Produto", function (request, response) {
   produtos.push(request.body);
+  response.json();
 });
 
 express.listen(8888);

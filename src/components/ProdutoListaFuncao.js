@@ -4,6 +4,7 @@ import Avaliacao from "./Avaliacao";
 import ProdutoDetalhe from "./ProdutoDetalhe";
 import { Titulo } from "../Styles";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function ProdutoListaFuncao() {
   // useState => cria novo state
@@ -44,32 +45,41 @@ function ProdutoListaFuncao() {
     <>
       <Titulo>Lista de Produtos</Titulo>
       {produtos && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Nome</th>
-              <th>Preço</th>
-              <th>Avaliacao</th>
-            </tr>
-          </thead>
-          <tbody>
-            {produtos.map((p) => (
-              <tr
-                key={p.codigo}
-                onClick={() => selecionarProduto(p)}
-                style={getProdutoStyle(p)}
-              >
-                <td>{p.codigo}</td>
-                <td>{p.nome}</td>
-                <td>{p.preco}</td>
-                <td>
-                  <Avaliacao valor={p.avaliacao} />
-                </td>
+        <>
+          <div>
+            <Link class="btn btn-primary" to="/produto/novo">
+              Novo
+            </Link>
+            <button class="btn btn-primary">Alterar</button>
+            <button class="btn btn-danger">Remover</button>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Avaliacao</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {produtos.map((p) => (
+                <tr
+                  key={p.codigo}
+                  onClick={() => selecionarProduto(p)}
+                  style={getProdutoStyle(p)}
+                >
+                  <td>{p.codigo}</td>
+                  <td>{p.nome}</td>
+                  <td>{p.preco}</td>
+                  <td>
+                    <Avaliacao valor={p.avaliacao} editavel={false} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
 
       <ProdutoDetalhe

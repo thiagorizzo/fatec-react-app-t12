@@ -10,6 +10,10 @@ class ProdutoApi {
   static getByCodigo(codigo) {
     return Axios.get(`${this.baseUrl}/produtos/${codigo}`);
   }
+
+  static add(produto) {
+    return Axios.post(`${this.baseUrl}/produto`, produto);
+  }
 }
 
 export default ProdutoApi;

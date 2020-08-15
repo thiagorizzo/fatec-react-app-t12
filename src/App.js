@@ -1,6 +1,7 @@
 import React from "react";
 import Sobre from "./components/Sobre";
 import Cabecalho from "./components/Cabecalho";
+import ProdutoEdit from "./components/ProdutoEdit";
 import ProdutoListaFuncao from "./components/ProdutoListaFuncao";
 import PaginaPrincipal from "./components/PaginaPrincipal";
 import PaginaNaoEncontrada from "./components/PaginaNaoEncontrada";
@@ -42,6 +43,7 @@ class App extends React.Component {
           <Route path="/" exact component={PaginaPrincipal}></Route>
           <Redirect from="/lista-produtos" to="/produtos"></Redirect>
           <Route path="/produtos" component={ProdutoListaFuncao}></Route>
+          <Route path="/produto/novo" component={ProdutoEdit}></Route>
           <Route
             path="/produto/detalhe/:codigo"
             component={ProdutoDetalhe}

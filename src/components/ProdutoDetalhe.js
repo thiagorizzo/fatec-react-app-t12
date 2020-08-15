@@ -11,9 +11,9 @@ function ProdutoDetalhe({ produto, titulo, match }) {
     // origem: codigo da rota
     if (match) {
       setTituloDetalhe("Produto Detalhe Por Rota");
-      let codigoProduto = +match.params.codigo; // string
-      ProdutoApi.getByCodigo(codigoProduto).then((_produto) => {
-        setProdutoDetalhe(_produto);
+      let codigoProduto = +match.params.codigo;
+      ProdutoApi.getByCodigo(codigoProduto).then((response) => {
+        setProdutoDetalhe(response.data);
       });
     } else {
       // origem: prop produto
