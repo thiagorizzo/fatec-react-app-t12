@@ -7,6 +7,8 @@ import PaginaNaoEncontrada from "./components/PaginaNaoEncontrada";
 import GlobalStyles from "./GlobalStyles";
 import { Route, Switch, NavLink, Redirect } from "react-router-dom";
 import ProdutoDetalhe from "./components/ProdutoDetalhe";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends React.Component {
   state = {
@@ -20,6 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <>
+        <ToastContainer />
         <GlobalStyles />
         <Cabecalho cor="red">
           <em>{this.state.titulo}</em>

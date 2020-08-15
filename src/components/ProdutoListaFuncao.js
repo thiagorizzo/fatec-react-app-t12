@@ -3,6 +3,7 @@ import ProdutoApi from "../api/ProdutoApi";
 import Avaliacao from "./Avaliacao";
 import ProdutoDetalhe from "./ProdutoDetalhe";
 import { Titulo } from "../Styles";
+import { toast } from "react-toastify";
 
 function ProdutoListaFuncao() {
   // useState => cria novo state
@@ -13,9 +14,13 @@ function ProdutoListaFuncao() {
 
   useEffect(() => {
     var promise = ProdutoApi.getAll();
-    promise.then((_produtos) => {
-      setProdutos(_produtos);
-    });
+    promise
+      .then((response) => {
+        setProdutos(response.data);
+      })
+      .catch((error) => {
+        toast.error("Erro: " + error);
+      });
 
     return () => {
       // componentDidUnmount()

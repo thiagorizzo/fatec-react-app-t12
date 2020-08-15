@@ -26,7 +26,6 @@ function ProdutoDetalhe({ produto, titulo, match }) {
   return (
     <>
       <h1>Produto Detalhe</h1>
-      <Prompt when={true} message="Deseja realmente sair?" />
       {produtoDetalhe && (
         <div className="card">
           <div className="card-header">{tituloDetalhe}</div>
