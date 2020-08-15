@@ -5,7 +5,8 @@ import ProdutoListaFuncao from "./components/ProdutoListaFuncao";
 import PaginaPrincipal from "./components/PaginaPrincipal";
 import PaginaNaoEncontrada from "./components/PaginaNaoEncontrada";
 import GlobalStyles from "./GlobalStyles";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import ProdutoDetalhe from "./components/ProdutoDetalhe";
 
 class App extends React.Component {
   state = {
@@ -36,7 +37,12 @@ class App extends React.Component {
         </ul>
         <Switch>
           <Route path="/" exact component={PaginaPrincipal}></Route>
+          <Redirect from="/lista-produtos" to="/produtos"></Redirect>
           <Route path="/produtos" component={ProdutoListaFuncao}></Route>
+          <Route
+            path="/produto/detalhe/:codigo"
+            component={ProdutoDetalhe}
+          ></Route>
           <Route path="/sobre" component={Sobre}></Route>
           <Route component={PaginaNaoEncontrada}></Route>
         </Switch>

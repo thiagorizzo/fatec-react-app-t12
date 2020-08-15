@@ -12,9 +12,7 @@ function ProdutoListaFuncao() {
   const [produtoSelecionado, setProdutoSelecionado] = useState(undefined);
 
   useEffect(() => {
-    const produtoApi = new ProdutoApi();
-
-    var promise = produtoApi.getAll();
+    var promise = ProdutoApi.getAll();
     promise.then((_produtos) => {
       setProdutos(_produtos);
     });
