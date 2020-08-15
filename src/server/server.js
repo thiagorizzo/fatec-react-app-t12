@@ -80,4 +80,13 @@ express.post("/Produto", function (request, response) {
   response.json();
 });
 
+// Delete
+express.delete("/Produto/:codigo", function (request, response) {
+  var codigo = request.params["codigo"];
+  var produto = produtos.filter((p) => {
+    return p.codigo == codigo;
+  })[0];
+  response.json();
+});
+
 express.listen(8888);

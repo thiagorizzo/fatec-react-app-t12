@@ -44,6 +44,7 @@ class App extends React.Component {
           <Redirect from="/lista-produtos" to="/produtos"></Redirect>
           <Route path="/produtos" component={ProdutoListaFuncao}></Route>
           <Route path="/produto/novo" component={ProdutoEdit}></Route>
+          <Route path="/produto/:codigo" component={ProdutoEdit}></Route>
           <Route
             path="/produto/detalhe/:codigo"
             component={ProdutoDetalhe}

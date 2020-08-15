@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import CategoriaApi from "../api/CategoriaApi";
 import Avaliacao from "./Avaliacao";
 import { Link } from "react-router-dom";
-import ProdutoListaFuncao from "./ProdutoListaFuncao";
 import ProdutoApi from "../api/ProdutoApi";
 import { toast } from "react-toastify";
 
-function ProdutoEdit({ history }) {
+function ProdutoEdit({ history, match }) {
+  const [isEdit, setIsEdit] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const [produto, setProduto] = useState({
     nome: "",
     preco: 0,
@@ -16,23 +18,41 @@ function ProdutoEdit({ history }) {
   const [categorias, setCategorias] = useState();
 
   useEffect(() => {
+    if (match) {
+      setIsEdit(true);
+      let codigoProduto = +match.params.codigo;
+      ProdutoApi.getByCodigo(codigoProduto).then((response) => {
+        setProduto(response.data);
+      });
+    }
     CategoriaApi.getAll().then((response) => {
       setCategorias(response.data);
     });
   }, []);
 
-  function submitForm() {
-    ProdutoApi.add(produto)
-      .then((response) => {
-        debugger;
-        history.push("/produtos");
-        toast.success("Produto adicionado com sucesso.");
-      })
+  function submitForm(event) {
+    event.preventDefault();
+    if (!isEdit) {
+      ProdutoApi.add(produto)
+        .then((response) => {
+          history.push("/produtos");
+          toast.success("Produto adicionado com sucesso.");
+        })
 
-      .catch((error) => {
-        debugger;
-        toast.error(`Erro: ${error}`);
-      });
+        .catch((error) => {
+          toast.error(`Erro: ${error}`);
+        });
+    } else {
+      ProdutoApi.edit(produto)
+        .then((response) => {
+          history.push("/produtos");
+          toast.success("Produto adicionado com sucesso.");
+        })
+
+        .catch((error) => {
+          toast.error(`Erro: ${error}`);
+        });
+    }
   }
 
   function avaliacaoMudou(valor) {
@@ -40,6 +60,15 @@ function ProdutoEdit({ history }) {
   }
 
   function changeHandler(event) {
+    setErrors({});
+    switch (event.target.name) {
+      case "nome":
+        if (event.target.value.length === 0)
+          setErrors({ nome: "Nome é obrigatório" });
+        break;
+      default:
+    }
+
     setProduto({ ...produto, [event.target.name]: event.target.value });
   }
 
@@ -55,6 +84,7 @@ function ProdutoEdit({ history }) {
             value={produto.nome}
             onChange={changeHandler}
           />
+          {errors.nome && <div style={{ color: "red" }}>{errors.nome}</div>}
         </div>
         <div className="form-group">
           <label htmlFor="preco">Preço</label>

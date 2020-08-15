@@ -6,7 +6,7 @@ import { Titulo } from "../Styles";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-function ProdutoListaFuncao() {
+function ProdutoListaFuncao({ history }) {
   // useState => cria novo state
   const [produtos, setProdutos] = useState(undefined);
 
@@ -41,6 +41,30 @@ function ProdutoListaFuncao() {
     return undefined;
   }
 
+  function alterarProduto() {
+    if (!produtoSelecionado) {
+      toast.error("Selecione um produto.");
+      return;
+    }
+
+    history.push(`/produto/${produtoSelecionado.codigo}`);
+  }
+
+  function removerProduto() {
+    if (!produtoSelecionado) {
+      toast.error("Selecione um produto.");
+      return;
+    }
+
+    ProdutoApi.delete(produtoSelecionado.codigo)
+      .then((response) => {
+        toast.success("Produto removido com sucesso");
+      })
+      .catch((error) => {
+        toast.success(`Erro ao remover produto. ${error}`);
+      });
+  }
+
   return (
     <>
       <Titulo>Lista de Produtos</Titulo>
@@ -50,8 +74,12 @@ function ProdutoListaFuncao() {
             <Link class="btn btn-primary" to="/produto/novo">
               Novo
             </Link>
-            <button class="btn btn-primary">Alterar</button>
-            <button class="btn btn-danger">Remover</button>
+            <button class="btn btn-primary" onClick={alterarProduto}>
+              Alterar
+            </button>
+            <button class="btn btn-danger" onClick={removerProduto}>
+              Remover
+            </button>
           </div>
           <table className="table">
             <thead>
